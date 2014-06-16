@@ -1,20 +1,34 @@
+-- initialise our arguments table
+args = {...}
+
+-- check that we have the right number of arguments
+if #args > 0 and #args < 2  then
+	-- extract our arguments to variables
+	power_cell_number = args[1]
+else
+	error("Too few or too many arguments!")
+end
+
 -- bind our monitor
 local monitor = peripheral.wrap("back")
 
 -- set the text size
-monitor.setTextSize(0.5)
+monitor.setTextScale(0.5)
 
 -- initialise the redstone outputs
 redstone.setOutput("left", false)
 redstone.setOutput("right", false)
 
 function redraw_screen()
+	-- set background colour to black
+	monitor.setBackgroundColor(colors.black)
+
 	-- clear the screen before we redraw it
-	monitor.clear
+	monitor.clear()
 
 	-- print our title
 	monitor.setCursorPos(13,3)
-	monitor.write("POWER CELL 1")
+	monitor.write("POWER CELL " .. power_cell_number)
 
 	-- draw the dynamo control box, colour depending on what state the outputs are in
 	monitor.setCursorPos(2,6)
@@ -42,10 +56,13 @@ function redraw_screen()
 	monitor.setCursorPos(20,7)
 	monitor.write("     ENERGY     ")
 	monitor.setCursorPos(20,8)
-	monitor.write("     OUTPUT    ")
+	monitor.write("     OUTPUT     ")
 	monitor.setCursorPos(20,9)
 	monitor.write("                ")
 end
+
+-- call redraw_screen once to draw the screen for the first time
+redraw_screen()
 
 while true do
 	-- pull touch events from the screen
