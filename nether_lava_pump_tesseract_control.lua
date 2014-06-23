@@ -15,29 +15,31 @@ function redraw_screen()
 	monitor.clear()
 
 	-- print our title
-	monitor.setCursorPos(2,3)
-	monitor.write("NETHER LAVA PUMP")
+	monitor.setCursorPos(3,2)
+	monitor.write("NETHER LAVA")
+	monitor.setCursorPos(7,3)
+	monitor.write("PUMP")
 
 	-- draw the tesseract box, colour depending on what state the outputs are in
 	monitor.setCursorPos(2,6)
 	if redstone.getOutput("right") == false then
 		monitor.setBackgroundColor(colors.red)
-		monitor.write("                ")
+		monitor.write("             ")
 		monitor.setCursorPos(2,7)
-		monitor.write("   TESSERACT    ")
+		monitor.write("  TESSERACT  ")
 		monitor.setCursorPos(2,8)
-		monitor.write("   DISABLED     ")
+		monitor.write("  DISABLED   ")
 		monitor.setCursorPos(2,9)
-		monitor.write("                ")
+		monitor.write("             ")
 	elseif redstone.getOutput("right") == true then
 		monitor.setBackgroundColor(colors.lime)
-		monitor.write("                ")
+		monitor.write("             ")
 		monitor.setCursorPos(2,7)
-		monitor.write("   TESSERACT    ")
+		monitor.write("  TESSERACT  ")
 		monitor.setCursorPos(2,8)
-		monitor.write("    ENABLED     ")
+		monitor.write("   ENABLED   ")
 		monitor.setCursorPos(2,9)
-		monitor.write("                ")
+		monitor.write("             ")
 	end
 end
 
@@ -49,7 +51,7 @@ while true do
 	event, side, xPos, yPos = os.pullEvent("monitor_touch")
 
 	-- if the touch was within the tesseract box, toggle that output
-	if xPos >= 2 and xPos <=17 and yPos >= 6 and yPos <= 9 then
+	if xPos >= 2 and xPos <=14 and yPos >= 6 and yPos <= 9 then
 		if redstone.getOutput("right") == false then
 			redstone.setOutput("right", true)
 			redraw_screen()
